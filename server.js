@@ -4,7 +4,7 @@ const port = process.env.PORT || 3000;
 
 //Databas
 const sqlite3 = require("sqlite3").verbose();
-const db = new sqlite3.Database("./db/resume.db");
+const db = new sqlite3.Database(process.env.DB_PATH);
 
 /* app.get("/", (req, res) => {
     res.render("index", {
