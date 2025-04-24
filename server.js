@@ -28,8 +28,8 @@ app.get("/resume", (req, res) => {
         res.json(row);
     })
 }); 
-//POST-metod
-app.post("/resume", (req, res) => {
+//POST-method
+app.post("/resume/add", (req, res) => {
     let companyname = req.body.companyname;
     let jobtitle = req.body.jobtitle;
     let location = req.body.location;
@@ -67,6 +67,23 @@ app.post("/resume", (req, res) => {
     res.json({ message: "Job added", job});
   }
 });
+
+///DELETE-method
+app.delete("/resume/delete/:id", (req, res) => {
+    let id = req.params.id;
+
+    //Delete job
+    db.run("DELETE FROM resume WHERE id=?;", id, (err) => {
+        if(err){
+            console.error(err.message);
+        }
+        let deletedJob = {
+            id: id
+        }
+    
+        res.json({ message: "Job deleted with id: ", id});
+    })
+})
 
 app.listen(port, () => {
     console.log("Server running on port: " + port);
