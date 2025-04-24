@@ -22,7 +22,8 @@ Användning:
 |PUT | "/resume/update/:id" | Uppdatera ett jobb med angivet id|
 |DELETE | "/resume/delete/:id" | Radera ett jobb med angivet id|
 
-ett jobb-objekt returneras och skickas som JSON med följande struktur:
+Ett jobb-objekt returneras och skickas som JSON med följande struktur:
+```json
 {
     "companyname": "Matbutik",
     "jobtitle": "Gruppchef för Frukt och Grönt",
