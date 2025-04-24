@@ -9,10 +9,10 @@ db.serialize(() =>{
     db.run(`
         CREATE TABLE resume (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            companyname VARCHAR(40) NOT NULL,
-            jobtitle VARCHAR(40) NOT NULL,
-            location VARCHAR (40) NOT NULL,
-            job_created TIMESTAMP NOT NULL DEFAULT CURENT_TIMESTAMP
+            companyname VARCHAR(50) NOT NULL,
+            jobtitle VARCHAR(50) NOT NULL,
+            location VARCHAR (50) NOT NULL,
+            job_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         );
     `);
 });
