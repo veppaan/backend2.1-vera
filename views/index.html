@@ -9,15 +9,34 @@
     <h1>Moment 2.1</h1>
     <p>Testar...</p>
     <script>
-/*         let url ="http://127.0.0.1:3000/resume";
+        let url ="http://127.0.0.1:3000/resume";
 
         getData();
+        //createJob("Test index company", "test-title", "test-location");
 
         async function getData(){
             const response = await fetch(url);
             const data = await response.json();
             console.table(data);
-        } */
+        } 
+
+        async function createJob(companyname, jobtitle, location){
+            let job = {
+                companyname: companyname,
+                jobtitle: jobtitle,
+                location: location
+            }
+            const response = await fetch("http://127.0.0.1:3000/resume/add", {
+                method: "POST",
+                headers: {
+                    "content-type": "Application/json"
+                },
+                body: JSON.stringify(job)
+            });
+
+            const data = await response.json();
+            console.log(data);
+        }
     </script>
 </body>
 </html>

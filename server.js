@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
-//require("dotenv").config();
+const cors = require("cors");
 //Databas
 const sqlite3 = require("sqlite3").verbose();
 const db = new sqlite3.Database("./db/resume.db", (err) => {
@@ -12,6 +12,7 @@ const db = new sqlite3.Database("./db/resume.db", (err) => {
 
 ///Middleware
 app.use(express.json());
+app.use(cors());
 
 //Routes
 
@@ -54,6 +55,7 @@ app.post("/resume/add", (req, res) => {
 
     return;
   }else{
+    //Query to database
     const stmt = db.prepare("INSERT INTO resume(companyname, jobtitle, location) VALUES(?, ?, ?);");
     stmt.run(companyname, jobtitle, location);
     stmt.finalize();
@@ -72,12 +74,12 @@ app.post("/resume/add", (req, res) => {
 app.delete("/resume/delete/:id", (req, res) => {
     let id = req.params.id;
 
-    //Delete job
+    //Delete job with query to database
     db.run("DELETE FROM resume WHERE id=?;", id, function (err) {
         if(err){
             console.error(err.message);
         }
-
+        //Check to see changes
         if(this.changes === 0){
             res.status(404).json ({ error: `Job with id (${id}) does not exist`});
             return;
@@ -116,7 +118,7 @@ app.put("/resume/update/:id", (req, res) => {
     const stmt = db.prepare("UPDATE resume SET companyname=?, jobtitle=?, location=? WHERE id=?");
     stmt.run(companyname, jobtitle, location, id);
     stmt.finalize();
-
+    //Check to see changes
     if(this.changes === 0){
         res.status(404).json ({ error: `Job with id (${id}) does not exist`});
         return;
