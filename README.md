@@ -1,6 +1,6 @@
-*Vera Kippel veki2400*
+**Vera Kippel veki2400**
 
-Ettt API byggt med express. 
+Ett API byggt med express. 
 API:et hanterar ett cv där en användare lägger till jobberfarenheter.
 CRUD(Create, Read, Update och Delete) iär implementerad.
 
