@@ -35,13 +35,13 @@ app.post("/resume/add", (req, res) => {
     let location = req.body.location;
 
     //Error handling
-  let errors = {
-    message: "",
-    detail: "",
-    https_response: {
+    let errors = {
+        message: "",
+        detail: "",
+        https_response: {
 
-    }
-  };
+        }
+    };
   if(!companyname || !jobtitle || !location){
     errors.message= "Companyname, jobtitle and location not included";
     errors.detail = "You must include both companyname, jobtitle and location in JSON";
@@ -77,7 +77,7 @@ app.delete("/resume/delete/:id", (req, res) => {
         if(err){
             console.error(err.message);
         }
-        console.log(`${this.changes}`);
+
         if(this.changes === 0){
             res.status(404).json ({ error: `Job with id (${id}) does not exist`});
             return;
@@ -85,6 +85,54 @@ app.delete("/resume/delete/:id", (req, res) => {
         res.status(200).json({ message: "Job deleted with id: " + id});
     })
 })
+///PUT-method
+app.put("/resume/update/:id", (req, res) => {
+    let id = req.params.id;
+
+    let companyname = req.body.companyname;
+    let jobtitle = req.body.jobtitle;
+    let location = req.body.location;
+
+    //Error handling
+    let errors = {
+        message: "",
+        detail: "",
+        https_response: {
+
+        }
+    };
+  if(!companyname || !jobtitle || !location){
+    errors.message= "Companyname, jobtitle and location not included";
+    errors.detail = "You must include both companyname, jobtitle and location in JSON";
+
+    //Response code
+    errors.https_response.message = "Bad Request";
+    errors.https_response.code = 400;
+
+    res.status(400).json(errors);
+
+    return;
+  }else{
+    const stmt = db.prepare("UPDATE resume SET companyname=?, jobtitle=?, location=? WHERE id=?");
+    stmt.run(companyname, jobtitle, location, id);
+    stmt.finalize();
+
+    if(this.changes === 0){
+        res.status(404).json ({ error: `Job with id (${id}) does not exist`});
+        return;
+    }
+    res.status(200).json({ message: "Job updated with id: " + id});
+
+    let job = {
+        companyname: companyname,
+        jobtitle: jobtitle,
+        location: location
+    }
+
+    res.json({ message: `Job updated`, job});
+    
+  }
+});
 
 app.listen(port, () => {
     console.log("Server running on port: " + port);
