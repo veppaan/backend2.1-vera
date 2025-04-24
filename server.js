@@ -18,16 +18,31 @@ app.use(cors());
 
 //Hämta alla rader i resume-databas
 app.get("/", (req, res) => {
-    res.json({message: "Get resume"})
-});
-//Hämta resume-tabellens värden GET
-app.get("/resume", (req, res) => {
     db.all("SELECT * FROM resume;", (err, row) => {
         if(err){
             console.error(err.message);
         }
         res.json(row);
     })
+});
+//Hämta resume-tabellens värden GET
+app.get("/resume/:id", (req, res) => {
+    let id = req.params.id;
+
+        //Query to database
+        const stmt = db.get("SELECT * FROM resume WHERE id=?;", id, (err, job) => {
+            if(err){
+                res.status(500).json({error: err.message});
+                return;
+            }
+        if(!job){
+            res.status(500).json({error: "Inga rader i id hittad"});
+            return;
+        }
+
+        res.json({ message: "Job to show", job});
+        stmt.finalize();
+        });
 }); 
 //POST-method
 app.post("/resume/add", (req, res) => {
