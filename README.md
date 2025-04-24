@@ -17,7 +17,8 @@ Användning:
 
 |Metod | Ändpunkt | Beskrivning |
 -------|----------|-------------|
-|GET | "/resume" | Hämta alla lagrade jobberfarenheter|
+|GET | "/" | Hämta alla lagrade jobberfarenheter|
+|GET | "/resume/:id" | Hämta ett jobb med angivet id|
 |POST| "/resume/add" | Lägg till ett jobb till ditt CV |
 |PUT | "/resume/update/:id" | Uppdatera ett jobb med angivet id|
 |DELETE | "/resume/delete/:id" | Radera ett jobb med angivet id|
