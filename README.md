@@ -2,7 +2,7 @@
 
 Ett API byggt med express. 
 API:et hanterar ett cv där en användare lägger till jobberfarenheter.
-CRUD(Create, Read, Update och Delete) iär implementerad.
+CRUD(Create, Read, Update och Delete) är implementerad.
 
 Tabellens namn för cv:ts olika jobb heter "resume" som skapats med hjälv av SQLite3.
 Tabellens innehåll:
