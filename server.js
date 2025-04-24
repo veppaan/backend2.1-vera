@@ -16,10 +16,6 @@ app.use(cors());
 
 //Routes
 
-//Hämta alla rader i resume-databas
-app.get("/", (req, res) => {
-    res.json({message: "Get resume"})
-});
 //Hämta resume-tabellens värden GET
 app.get("/resume", (req, res) => {
     db.all("SELECT * FROM resume;", (err, row) => {
