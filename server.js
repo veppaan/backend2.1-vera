@@ -18,7 +18,7 @@ app.use(cors());
 
 //Hämta alla rader i resume-databas
 app.get("/", (req, res) => {
-    db.all("SELECT * FROM resume;", (err, row) => {
+    db.all("SELECT * FROM resume ORDER BY id DESC;", (err, row) => {
         if(err){
             console.error(err.message);
         }
@@ -30,7 +30,7 @@ app.get("/resume/:id", (req, res) => {
     let id = req.params.id;
 
         //Query to database
-        const stmt = db.get("SELECT * FROM resume WHERE id=? ORDER BY id DESC;", id, (err, job) => {
+        const stmt = db.get("SELECT * FROM resume WHERE id=?;", id, (err, job) => {
             if(err){
                 res.status(500).json({error: err.message});
                 return;
