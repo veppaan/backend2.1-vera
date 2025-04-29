@@ -30,7 +30,7 @@ app.get("/resume/:id", (req, res) => {
     let id = req.params.id;
 
         //Query to database
-        const stmt = db.get("SELECT * FROM resume WHERE id=?;", id, (err, job) => {
+        const stmt = db.get("SELECT * FROM resume WHERE id=? ORDER BY id DESC;", id, (err, job) => {
             if(err){
                 res.status(500).json({error: err.message});
                 return;
